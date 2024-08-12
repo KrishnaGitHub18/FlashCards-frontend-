@@ -1,0 +1,70 @@
+/* AddCard.css */
+
+
+.add-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(#e66465, #9198e5);
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #03446A;
+    margin-bottom: 20px;
+}
+
+.add-card-form {
+    background: rgb(226, 213, 213);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #03446A;
+}
+
+.form-group textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #fcdfdf;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+button {
+    background-color: #03446A;
+    color: rgb(248, 222, 222);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #023c6c;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #03446A;
+}
