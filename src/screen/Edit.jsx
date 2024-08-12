@@ -4,14 +4,18 @@ import '../css/AddCard.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const AddCard = () => {
-    const [cardQue, setCardQue] = useState('');
-    const [cardAns, setCardAns] = useState('');
+
+    const location = useLocation();
+    const curr_idx = location.state?.curr_idx;
+    const curr_que = location.state?.curr_que;
+    const curr_ans = location.state?.curr_ans;
+
+    const [cardQue, setCardQue] = useState(curr_que);
+    const [cardAns, setCardAns] = useState(curr_ans);
     const [message, setMessage] = useState('');
 
     const navigate = useNavigate();
 
-    const location = useLocation();
-    const curr_idx = location.state?.curr_idx;
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -53,7 +57,7 @@ const AddCard = () => {
                         required
                     ></textarea>
                 </div>
-                <button type='submit'>Add Card</button>
+                <button type='submit'>Edit Card</button>
                 {message && <p className='message'>{message}</p>}
             </form>
         </div>

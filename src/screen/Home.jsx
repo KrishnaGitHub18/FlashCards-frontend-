@@ -37,7 +37,15 @@ const Home = () => {
     const handleEdit = async (e) => {
         try {
             global.curr_idx = index ;
-            navigate("/edit",  { state: { curr_idx: cardData[index].cardid } });
+            navigate("/edit",  { 
+                state: 
+                    { 
+                        curr_idx: cardData[index].cardid,
+                        curr_que: cardData[index].cardque,
+                        curr_ans: cardData[index].cardans
+                    } 
+                }
+            );
         } catch (error) {
             console.error("Error deleting card:", error);
         }
