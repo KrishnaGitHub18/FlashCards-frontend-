@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/AddCard.css'; 
+import { useNavigate } from 'react-router-dom';
 
 const AddCard = () => {
     const [cardQue, setCardQue] = useState('');
     const [cardAns, setCardAns] = useState('');
     const [message, setMessage] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,6 +20,7 @@ const AddCard = () => {
             setMessage('Card added successfully!');
             setCardQue('');
             setCardAns('');
+            navigate("/");
         } catch (error) {
             console.error("Error adding card:", error);
             setMessage('Failed to add card.');

@@ -28,8 +28,7 @@ const Home = () => {
     const handleDelete = async (e) => {
         try {
             await axios.delete(`http://localhost:5000/api/delete-data/${cardData[index].cardid}`);
-            alert('card deleted successfully, please refresh the page');
-            navigate("/");
+            navigate(0);
         } catch (error) {
             console.error("Error deleting card:", error);
         }
@@ -37,13 +36,19 @@ const Home = () => {
 
     const handleEdit = async (e) => {
         try {
-            await axios.delete(`http://localhost:5000/api/delete-data/${cardData[index].cardid}`);
-            navigate("/add");
+            global.curr_idx = index ;
+            navigate("/edit",  { state: { curr_idx: cardData[index].cardid } });
         } catch (error) {
             console.error("Error deleting card:", error);
         }
     }
 
+
+    const [isFlipped, setIsFlipped] = useState(false);
+
+    const handleCardClick = () => {
+        setIsFlipped(!isFlipped);
+    };
 
     const navigate = useNavigate();
     return (
@@ -55,7 +60,7 @@ const Home = () => {
                 <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={handleEdit}></i>
             </div>
 
-            <div className='card'>
+            <div className={`card ${isFlipped ? 'flipped' : ''}`} onClick={handleCardClick}>
                 <div className="content">
                     {
                         cardData.length > 0
@@ -99,4 +104,4 @@ const Home = () => {
 }
 
 
-export default Home
+export default Home;
