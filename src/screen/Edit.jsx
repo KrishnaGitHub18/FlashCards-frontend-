@@ -19,7 +19,7 @@ const AddCard = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:5000/api/edit-data/${curr_idx}`, {
+            const response = await axios.put(`https://flash-card-backend-ten.vercel.app/api/edit-data/${curr_idx}`, {
                 cardque: cardQue,
                 cardans: cardAns,
             });

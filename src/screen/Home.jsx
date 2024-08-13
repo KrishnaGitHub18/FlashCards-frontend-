@@ -27,7 +27,7 @@ const Home = () => {
 
     const handleDelete = async (e) => {
         try {
-            await axios.delete(`http://localhost:5000/api/delete-data/${cardData[index].cardid}`);
+            await axios.delete(`https://flash-card-backend-ten.vercel.app/api/delete-data/${cardData[index].cardid}`);
             navigate(0);
         } catch (error) {
             console.error("Error deleting card:", error);
