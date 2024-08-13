@@ -29,6 +29,10 @@ const Login = () => {
         
         if (!dataValidity.success) {
             alert("Please enter valid credentials.");
+            setTimeout(() => {
+                navigate("/");
+                message.error("Directed as a user");
+            }, 2000); 
         }
         else {
             localStorage.setItem("authToken", dataValidity.authToken);
