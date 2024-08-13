@@ -1,0 +1,80 @@
+.login-main {
+    height: 100vh;
+    background: linear-gradient(#e66465, #9198e5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 50%;
+    margin-top: 25%;
+    margin-bottom: 25%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: rgba(255,255,255,0.13);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);   
+}
+
+@media (max-width: 900px) {
+    .form-box{
+        width: 60%;
+    }
+}
+@media (max-width: 603px) {
+    .form-box{
+        width: 80%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+.name, .password, form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+label{
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    height: 50px;
+    width: 40%;
+    border-radius: 5px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    border: none;
+}
+@media (max-width: 603px){
+    .input{
+        width: 60%;
+        margin: 0;
+    }
+}
+button{
+    margin-top: 50px;
+    width: 100%;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit{
+    width: 43%;
+}

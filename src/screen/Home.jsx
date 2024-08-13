@@ -58,15 +58,48 @@ const Home = () => {
         setIsFlipped(!isFlipped);
     };
 
+    const handlePrevious = () => {
+        if (index){
+            if (isFlipped){
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setIndex(index - 1);
+                }, 700); 
+            }
+            else {
+                setIndex(index - 1);
+            }
+        }
+        else {
+            console.log('1st element')
+        }
+    }
+    const handleNext = () => {
+        if (index === cardData.length -1){
+            console.log('Last Element')
+        }
+        else {
+            if (isFlipped){
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setIndex(index + 1);
+                }, 700); 
+            }
+            else {
+                setIndex(index + 1);
+            }
+        }
+    }
+
     const navigate = useNavigate();
     return (
         <div className='main-div'>
 
-            <div className='icons'>
+            {/* <div className='icons'>
                 <i className="fas fa-marker" style={{ fontSize: '35px', color: '#000' }} onClick={() => navigate("/add")}></i>
                 <i className="fas fa-trash-alt" style={{ fontSize: '35px', color: '#000' }} onClick={handleDelete}></i>
                 <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={handleEdit}></i>
-            </div>
+            </div> */}
 
             <div className={`card ${isFlipped ? 'flipped' : ''}`} onClick={handleCardClick}>
                 <div className="content">
@@ -95,14 +128,14 @@ const Home = () => {
             <div className="buttons">
                 <button
                     className="button-64"
-                    onClick={() => { index ? setIndex(index - 1) : console.log('1st element') }}
+                    onClick={handlePrevious}
                 >
                     <span class="text">Left</span>
                 </button>
 
                 <button
                     className="button-64"
-                    onClick={() => { index === cardData.length - 1 ? console.log('Last Element') : setIndex(index + 1) }}
+                    onClick={handleNext}
                 >
                     <span class="text">Right</span>
                 </button>
