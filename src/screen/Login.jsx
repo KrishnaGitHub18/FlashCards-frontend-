@@ -72,7 +72,7 @@ const Login = () => {
                     </div>
 
                     {/* SUBMIT */}
-                    <button type="submit" className="submit" onClick={handleSubmit}>
+                    <button type="submit" className="submit" onSubmit={handleSubmit}>
                         Submit
                     </button>
 

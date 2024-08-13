@@ -165,7 +165,7 @@ const Home = () => {
 
                 <button
                     className="button-64"
-                    onSubmit={handleNext}
+                    onClick={handleNext}
                 >
                     <span class="text">Right</span>
                 </button>
