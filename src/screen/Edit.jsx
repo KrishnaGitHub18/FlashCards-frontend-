@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../css/AddCard.css'; 
+import '../css/AddCard.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const AddCard = () => {
@@ -17,19 +17,27 @@ const AddCard = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.put(`https://flash-card-backend-ten.vercel.app/api/edit-data/${curr_idx}`, {
-                cardque: cardQue,
-                cardans: cardAns,
-            });
-            setMessage('Card edited successfully!');            
-            setCardQue('');
-            setCardAns('');
-            navigate('/');
-        } catch (error) {
-            console.error("Error edited card:", error);
-            setMessage('Failed to edit card.');
+        if (!localStorage.authToken) {
+            alert('unauthorized user');
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
+        }
+        else {
+            e.preventDefault();
+            try {
+                const response = await axios.put(`https://flash-card-backend-ten.vercel.app/api/edit-data/${curr_idx}`, {
+                    cardque: cardQue,
+                    cardans: cardAns,
+                });
+                setMessage('Card edited successfully!');
+                setCardQue('');
+                setCardAns('');
+                navigate('/');
+            } catch (error) {
+                console.error("Error edited card:", error);
+                setMessage('Failed to edit card.');
+            }
         }
     };
 

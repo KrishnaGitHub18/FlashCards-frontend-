@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/Login.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { message } from "antd";
 
 const Login = () => {
 
@@ -10,19 +11,40 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Username:', username);
         console.log('Password:', password);
-        navigate("/");
+
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+
+        const dataValidity = await response.json();
+        console.log("data123" , dataValidity);        //////////////////////////
+        
+        if (!dataValidity.success) {
+            alert("Please enter valid credentials.");
+        }
+        else {
+            localStorage.setItem("authToken", dataValidity.authToken);
+            console.log(localStorage.authToken);
+            navigate("/");
+            message.success("You are login as a admin");
+        }
     };
 
 
     return (
         <div className='login-main'>
             <div className="form-box">
+                <h1>Admin Login</h1>
                 <form>
-                    
+
                     {/* NAME  */}
                     <div className="name">
                         <label>Username:  </label>
@@ -33,7 +55,7 @@ const Login = () => {
                             required
                         />
                     </div>
-           
+
                     {/* PASSWORD */}
                     <div className="password">
                         <label>Password:  </label>

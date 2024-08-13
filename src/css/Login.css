@@ -10,8 +10,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 40%;
-    height: 50%;
+    height: 80%;
     margin-top: 25%;
     margin-bottom: 25%;
     margin-left: 20%;
@@ -47,6 +48,7 @@
 label{
     font-size: 16px;
     font-weight: 500;
+    margin-right: 30%;
 }
 input{
     height: 50px;

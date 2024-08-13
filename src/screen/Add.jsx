@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../css/AddCard.css'; 
 import { useNavigate } from 'react-router-dom';
 
+
 const AddCard = () => {
     const [cardQue, setCardQue] = useState('');
     const [cardAns, setCardAns] = useState('');
@@ -11,19 +12,28 @@ const AddCard = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('https://flash-card-backend-ten.vercel.app/api/add-data', {
-                cardque: cardQue,
-                cardans: cardAns,
-            });
-            setMessage('Card added successfully!');
-            setCardQue('');
-            setCardAns('');
-            navigate("/");
-        } catch (error) {
-            console.error("Error adding card:", error);
-            setMessage('Failed to add card.');
+
+        if (!localStorage.authToken){
+            alert('unauthorized user');
+            setTimeout(() => {
+                navigate("/");
+            }, 2000); 
+        }
+        else{
+            e.preventDefault();
+            try {
+                const response = await axios.post('https://flash-card-backend-ten.vercel.app/api/add-data', {
+                    cardque: cardQue,
+                    cardans: cardAns,
+                });
+                setMessage('Card added successfully!');
+                setCardQue('');
+                setCardAns('');
+                navigate("/");
+            } catch (error) {
+                console.error("Error adding card:", error);
+                setMessage('Failed to add card.');
+            }
         }
     };
 

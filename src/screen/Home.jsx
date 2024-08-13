@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../css/Home.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate } from 'react-router-dom';
+import { message } from "antd";
 
 const Home = () => {
 
@@ -26,11 +27,19 @@ const Home = () => {
 
 
     const handleDelete = async (e) => {
-        try {
-            await axios.delete(`https://flash-card-backend-ten.vercel.app/api/delete-data/${cardData[index].cardid}`);
-            navigate(0);
-        } catch (error) {
-            console.error("Error deleting card:", error);
+        if (!localStorage.authToken){
+            alert('unauthorized user');
+            setTimeout(() => {
+                navigate("/");
+            }, 2000); 
+        }
+        else {
+            try {
+                await axios.delete(`https://flash-card-backend-ten.vercel.app/api/delete-data/${cardData[index].cardid}`);
+                navigate(0);
+            } catch (error) {
+                console.error("Error deleting card:", error);
+            }
         }
     }
 
@@ -90,16 +99,37 @@ const Home = () => {
             }
         }
     }
+    const handleLogout = () => {
+        localStorage.removeItem("authToken");
+        message.success("You are logout");
+        setTimeout(() => {
+            navigate(0);
+            navigate("/");
+        }, 2000); 
+    }
 
     const navigate = useNavigate();
     return (
         <div className='main-div'>
 
-            {/* <div className='icons'>
+            { localStorage.authToken
+            ?
+            <div className='icons'>
                 <i className="fas fa-marker" style={{ fontSize: '35px', color: '#000' }} onClick={() => navigate("/add")}></i>
                 <i className="fas fa-trash-alt" style={{ fontSize: '35px', color: '#000' }} onClick={handleDelete}></i>
                 <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={handleEdit}></i>
-            </div> */}
+                <i class="fa fa-sign-out" style={{ fontSize: '35px', color: '#000' }} onClick={handleLogout}></i>
+                {/* <button onClick={handleLogout}>logout</button> */}
+            </div>
+            : 
+            <div className='icons'>
+                <i className="fas fa-marker" style={{ fontSize: '35px', color: '#000' }} onClick={()=>message.warning("only admins can access this feature")} ></i>
+                <i className="fas fa-trash-alt" style={{ fontSize: '35px', color: '#000' }} onClick={()=>message.warning("only admins can access this feature")} ></i>
+                <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={()=>message.warning("only admins can access this feature")} ></i>            
+                <i class="fa  fa-sign-in" style={{ fontSize: '35px', color: '#000' }} onClick={()=>navigate("/login")}></i>
+                {/* <button onClick={()=>navigate("/login")}>Login</button> */}
+            </div>
+}
 
             <div className={`card ${isFlipped ? 'flipped' : ''}`} onClick={handleCardClick}>
                 <div className="content">
