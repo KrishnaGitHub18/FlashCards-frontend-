@@ -28,7 +28,7 @@ const Login = () => {
         console.log("data123" , dataValidity);        //////////////////////////
         
         if (!dataValidity.success) {
-            alert("Please enter valid credentials.");
+            message.error("Wrong credentials");
             setTimeout(() => {
                 navigate("/");
                 message.error("Directed as a user");
