@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../css/AddCard.css'; 
+import '../css/AddCard.css';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -13,18 +13,22 @@ const AddCard = () => {
 
     const handleSubmit = async (e) => {
 
-        if (!localStorage.authToken){
+        if (!localStorage.authToken) {
             alert('unauthorized user');
             setTimeout(() => {
                 navigate("/");
-            }, 2000); 
+            }, 2000);
         }
-        else{
+        else {
             e.preventDefault();
             try {
                 const response = await axios.post('https://flash-card-backend-ten.vercel.app/api/add-data', {
                     cardque: cardQue,
                     cardans: cardAns,
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('headToken')}`
+                    }
                 });
                 setMessage('Card added successfully!');
                 setCardQue('');

@@ -16,38 +16,35 @@ const Login = () => {
         console.log('Username:', username);
         console.log('Password:', password);
 
-        // const response = await fetch('http://localhost:5000/api/login', {
-        const response = await fetch('https://flash-card-backend-ten.vercel.app/api/login', {
+        // const response = await fetch('http://localhost:5000/api/loginHead', {
+        const response = await fetch('https://flash-card-backend-ten.vercel.app/api/loginHead', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username, password })
         })
 
         const dataValidity = await response.json();
-        console.log("data123" , dataValidity);        //////////////////////////
-        
+        console.log("data123", dataValidity);
+
         if (!dataValidity.success) {
-            message.error("Wrong credentials");
-            setTimeout(() => {
-                navigate("/");
-                message.error("Directed as a user");
-            }, 2000); 
+            message.error("Incorrect Head Credentials");
         }
         else {
-            localStorage.setItem("authToken", dataValidity.authToken);
-            console.log(localStorage.authToken);
-            navigate("/");
-            message.success("You are login as a admin");
+            localStorage.setItem("headToken", dataValidity.headToken);
+            console.log(localStorage.headToken, "successful");
+            navigate("/waitlist");
+            message.success("Head login successful");
         }
+
     };
 
 
     return (
         <div className='login-main'>
             <div className="form-box">
-                <h1>Admin Login</h1>
+                <h1>Head Login</h1>
                 <form>
 
                     {/* NAME  */}
@@ -76,9 +73,8 @@ const Login = () => {
                     <button type="submit" className="submit" onClick={handleSubmit}>
                         Submit
                     </button>
-                    <p onClick={()=>{navigate("/signup")}}>Register as an admin</p>
-                </form>
 
+                </form>
             </div >
         </div >
     )

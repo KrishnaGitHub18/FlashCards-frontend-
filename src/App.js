@@ -4,6 +4,9 @@ import Home from './screen/Home';
 import AddCard from './screen/Add';
 import EditCard from './screen/Edit';
 import Login from './screen/Login';
+import Head from './screen/Login-Head';
+import Signup from './screen/signup';
+import Waitlist from './screen/DisplayWaitlist';
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
           <Route path="/add" element={<AddCard />} />
           <Route path="/edit" element={<EditCard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/waitlist" element={<Waitlist />} />
+          <Route path="/head" element={<Head />} />
         </Routes>
       </Router>
     </>

@@ -26,10 +26,17 @@ const AddCard = () => {
         else {
             e.preventDefault();
             try {
-                const response = await axios.put(`https://flash-card-backend-ten.vercel.app/api/edit-data/${curr_idx}`, {
+                const response = await axios.put(`https://flash-card-backend-ten.vercel.app/api/edit-data/${curr_idx}`, 
+                {
                     cardque: cardQue,
                     cardans: cardAns,
-                });
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('headToken')}`
+                    }
+                }   
+            );
                 setMessage('Card edited successfully!');
                 setCardQue('');
                 setCardAns('');

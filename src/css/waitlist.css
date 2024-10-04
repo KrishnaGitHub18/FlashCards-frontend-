@@ -1,0 +1,47 @@
+
+/* Container styles */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+/* Table header styles */
+thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Styling for rows */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* Header cells */
+th {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Blank action column styling */
+td {
+    text-align: center;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    color: #333;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

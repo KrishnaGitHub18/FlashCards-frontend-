@@ -15,6 +15,7 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // const req = await axios.get("https://flash-card-backend-ten.vercel.app/api/displaydata", {
                 const req = await axios.get("https://flash-card-backend-ten.vercel.app/api/displaydata");
                 console.log(req.data);
                 setCardData(req.data);
@@ -27,15 +28,22 @@ const Home = () => {
 
 
     const handleDelete = async (e) => {
-        if (!localStorage.authToken){
+        if (!localStorage.authToken) {
             alert('unauthorized user');
             setTimeout(() => {
                 navigate("/");
-            }, 2000); 
+            }, 2000);
         }
         else {
             try {
-                await axios.delete(`https://flash-card-backend-ten.vercel.app/api/delete-data/${cardData[index].cardid}`);
+                await axios.delete(
+                    `https://flash-card-backend-ten.vercel.app/api/delete-data/${cardData[index].cardid}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('headToken')}`
+                        }
+                    }
+                );
                 navigate(0);
             } catch (error) {
                 console.error("Error deleting card:", error);
@@ -45,15 +53,15 @@ const Home = () => {
 
     const handleEdit = async (e) => {
         try {
-            global.curr_idx = index ;
-            navigate("/edit",  { 
-                state: 
-                    { 
-                        curr_idx: cardData[index].cardid,
-                        curr_que: cardData[index].cardque,
-                        curr_ans: cardData[index].cardans
-                    } 
+            global.curr_idx = index;
+            navigate("/edit", {
+                state:
+                {
+                    curr_idx: cardData[index].cardid,
+                    curr_que: cardData[index].cardque,
+                    curr_ans: cardData[index].cardans
                 }
+            }
             );
         } catch (error) {
             console.error("Error deleting card:", error);
@@ -68,12 +76,12 @@ const Home = () => {
     };
 
     const handlePrevious = () => {
-        if (index){
-            if (isFlipped){
+        if (index) {
+            if (isFlipped) {
                 setIsFlipped(false);
                 setTimeout(() => {
                     setIndex(index - 1);
-                }, 700); 
+                }, 700);
             }
             else {
                 setIndex(index - 1);
@@ -84,15 +92,15 @@ const Home = () => {
         }
     }
     const handleNext = () => {
-        if (index === cardData.length -1){
+        if (index === cardData.length - 1) {
             console.log('Last Element')
         }
         else {
-            if (isFlipped){
+            if (isFlipped) {
                 setIsFlipped(false);
                 setTimeout(() => {
                     setIndex(index + 1);
-                }, 700); 
+                }, 700);
             }
             else {
                 setIndex(index + 1);
@@ -105,31 +113,34 @@ const Home = () => {
         setTimeout(() => {
             navigate(0);
             navigate("/");
-        }, 2000); 
+        }, 2000);
     }
 
     const navigate = useNavigate();
     return (
         <div className='main-div'>
 
-            { localStorage.authToken
-            ?
-            <div className='icons'>
-                <i className="fas fa-marker" style={{ fontSize: '35px', color: '#000' }} onClick={() => navigate("/add")}></i>
-                <i className="fas fa-trash-alt" style={{ fontSize: '35px', color: '#000' }} onClick={handleDelete}></i>
-                <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={handleEdit}></i>
-                <i class="fa fa-sign-out" style={{ fontSize: '35px', color: '#000' }} onClick={handleLogout}></i>
-                {/* <button onClick={handleLogout}>logout</button> */}
-            </div>
-            : 
-            <div className='icons'>
-                <i className="fas fa-marker" style={{ fontSize: '35px', color: '#000' }} onClick={()=>message.warning("only admins can access this feature")} ></i>
-                <i className="fas fa-trash-alt" style={{ fontSize: '35px', color: '#000' }} onClick={()=>message.warning("only admins can access this feature")} ></i>
-                <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={()=>message.warning("only admins can access this feature")} ></i>            
-                <i class="fa  fa-sign-in" style={{ fontSize: '35px', color: '#000' }} onClick={()=>navigate("/login")}></i>
-                {/* <button onClick={()=>navigate("/login")}>Login</button> */}
-            </div>
-}
+            {localStorage.authToken
+                ?
+                <div className='icons'>
+                    <i className="fas fa-marker" style={{ fontSize: '35px', color: '#000' }} onClick={() => navigate("/add")}></i>
+                    <i className="fas fa-trash-alt" style={{ fontSize: '35px', color: '#000' }} onClick={handleDelete}></i>
+                    <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={handleEdit}></i>
+                    <i class="fa fa-sign-out" style={{ fontSize: '35px', color: '#000' }} onClick={handleLogout}></i>
+                    {/* <button onClick={handleLogout}>logout</button> */}
+                </div>
+                :
+                <div className='icons'>
+                    <i className="fas fa-marker" style={{ fontSize: '35px', color: '#000' }} onClick={() => message.warning("only admins can access this feature")} ></i>
+                    <i className="fas fa-trash-alt" style={{ fontSize: '35px', color: '#000' }} onClick={() => message.warning("only admins can access this feature")} ></i>
+                    <i className="fas fa-edit" style={{ fontSize: '35px', color: '#000' }} onClick={() => message.warning("only admins can access this feature")} ></i>
+                    <i class="fa  fa-sign-in" style={{ fontSize: '35px', color: '#000' }} onClick={() => navigate("/login")}></i>
+                    <i class="fa  fa-sign-in" style={{ fontSize: '35px', color: '#000', transform: 'rotateY(180deg)' }} onClick={() => navigate("/signup")}></i>
+                    {/* <button onClick={()=>navigate("/login")}>Login</button>
+                <button onClick={()=>navigate("/signup")}>Signup</button> */}
+                    {/* <button onClick={()=>navigate("/login")}>Login</button> */}
+                </div>
+            }
 
             <div className={`card ${isFlipped ? 'flipped' : ''}`} onClick={handleCardClick}>
                 <div className="content">

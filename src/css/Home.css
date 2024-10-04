@@ -74,10 +74,24 @@
     margin: 0;
 }
 
-.front p,
+/* .front p,
 .back p {
     font-size: 18px;
     margin: 0;
+    text-decoration: none;
+} */
+
+.front p{
+    font-size: 18px;
+    margin: 0;
+    text-decoration: none;
+    color: #03446A;
+}
+.back p{
+    font-size: 18px;
+    margin: 0;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .button {

@@ -7,47 +7,34 @@ import { message } from "antd";
 const Login = () => {
 
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [passwor, setPassword] = useState('');
+    const [email, setEmail] = useState('');
 
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Username:', username);
-        console.log('Password:', password);
+        console.log('Password:', passwor);
+        console.log('Email:', email);
 
-        // const response = await fetch('http://localhost:5000/api/login', {
-        const response = await fetch('https://flash-card-backend-ten.vercel.app/api/login', {
+        // const response = await fetch('https://flash-card-backend-ten.vercel.app/api/login', {
+        // const response = await fetch('http://localhost:5000/api/signup-req', {
+        const response = await fetch('https://flash-card-backend-ten.vercel.app/api/signup-req', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, passwor, email })
         })
 
-        const dataValidity = await response.json();
-        console.log("data123" , dataValidity);        //////////////////////////
-        
-        if (!dataValidity.success) {
-            message.error("Wrong credentials");
-            setTimeout(() => {
-                navigate("/");
-                message.error("Directed as a user");
-            }, 2000); 
-        }
-        else {
-            localStorage.setItem("authToken", dataValidity.authToken);
-            console.log(localStorage.authToken);
-            navigate("/");
-            message.success("You are login as a admin");
-        }
     };
 
 
     return (
         <div className='login-main'>
             <div className="form-box">
-                <h1>Admin Login</h1>
+                <h1>Register</h1>
                 <form>
 
                     {/* NAME  */}
@@ -72,13 +59,24 @@ const Login = () => {
                         />
                     </div>
 
+                    {/* EMAIL */}
+                    <div className="email">
+                        <label>Email  </label>
+                        <input
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your password"
+                            required
+                        />
+                    </div>
+
                     {/* SUBMIT */}
                     <button type="submit" className="submit" onClick={handleSubmit}>
                         Submit
                     </button>
-                    <p onClick={()=>{navigate("/signup")}}>Register as an admin</p>
-                </form>
 
+                    <p onClick={()=>{navigate("/login")}}>Login</p>
+                </form>
             </div >
         </div >
     )

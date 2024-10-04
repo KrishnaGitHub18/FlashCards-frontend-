@@ -36,7 +36,7 @@
     }
 }
 
-.name, .password, form{
+.name, .password, form, .email{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -76,7 +76,17 @@ button{
     border-radius: 5px;
     cursor: pointer;
 }
-
 .submit{
     width: 43%;
+}
+p {
+    margin-top: 20px;
+    color: #0008ff;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 20px;
+    display: flex;
+}
+p:hover {
+    color: #0f00b3;
 }
