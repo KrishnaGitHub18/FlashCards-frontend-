@@ -15,10 +15,10 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const req = await axios.get("https://flash-card-backend-ten.vercel.app/api/displaydata", {
                 const req = await axios.get("https://flash-card-backend-ten.vercel.app/api/displaydata");
-                console.log(req.data);
-                setCardData(req.data);
+                // const req = await axios.get("http://localhost:5000/api/displaydata");
+                console.log(req.data.data);
+                setCardData(req.data.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }

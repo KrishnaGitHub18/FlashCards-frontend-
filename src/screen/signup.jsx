@@ -19,14 +19,25 @@ const Login = () => {
         console.log('Email:', email);
 
         // const response = await fetch('https://flash-card-backend-ten.vercel.app/api/login', {
-        // const response = await fetch('http://localhost:5000/api/signup-req', {
-        const response = await fetch('https://flash-card-backend-ten.vercel.app/api/signup-req', {
+        const response = await fetch('http://localhost:5000/api/signup-req', {
+        // const response = await fetch('https://flash-card-backend-ten.vercel.app/api/signup-req', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username, passwor, email })
         })
+
+        const data = await response.json(); // Parse JSON response
+        
+        if (response.ok) {
+            console.log('Signup successful:', data.message);
+            message.success('Admin request submitted successfully.');
+            setTimeout(() => navigate("/"), 2500);
+        } else {
+            console.log('Signup failed:', data.message);
+            message.error(data.message);
+        }
 
     };
 
