@@ -13,7 +13,7 @@ const DisplayWaitlist = () => {
                 // const req = await axios.get("http://localhost:5000/api/display-waitlist", {
                 const req = await axios.get("https://flash-card-backend-ten.vercel.app/api/display-waitlist", {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('headToken')}` 
+                        'Authorization': `Bearer ${localStorage.getItem('headToken')}`
                     }
                 });
                 // const updatedData = req.data.map(user => ({ ...user, isApproved: false })); 
@@ -30,18 +30,17 @@ const DisplayWaitlist = () => {
     const navigate = useNavigate();
     const handleApproveAdmin = async (username, passwor, email, id) => {
 
-
         try {
             // const response = await fetch('http://localhost:5000/api/signup', {
             const response = await fetch('https://flash-card-backend-ten.vercel.app/api/signup', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ username, passwor, email })
             })
             const responseBackend = await response.json();
-            console.log("response of approving the user" , responseBackend); 
+            console.log("response of approving the user", responseBackend);
         } catch (error) {
             console.log("error in printing the waitlist", error);
         }
@@ -57,7 +56,9 @@ const DisplayWaitlist = () => {
         }
 
         try {
-            await axios.post('https://flash-card-backend-ten.vercel.app/api/email', {username, email, passwor} )
+            await axios.post('https://flash-card-backend-ten.vercel.app/api/email', {username, email, passwor} );
+            // await axios.post('http://localhost:5000/api/email', { username, email, passwor });
+            console.log(username, email, passwor);
         } catch (error) {
             console.error("Error in sending the conformation email to the user.", error)
         }
@@ -69,7 +70,7 @@ const DisplayWaitlist = () => {
         message.success("You are logout, head!");
         setTimeout(() => {
             navigate("/head");
-        }, 2000); 
+        }, 2000);
     }
 
     return (
@@ -94,8 +95,8 @@ const DisplayWaitlist = () => {
                                         <td>{data.password}</td>
                                         <td>{data.email}</td>
                                         <td>
-                                            <button 
-                                                onClick={() => handleApproveAdmin( data.username, data.password, data.email, data.id )}
+                                            <button
+                                                onClick={() => handleApproveAdmin(data.username, data.password, data.email, data.id)}
                                             >
                                                 {data.isApproved ? "Delete-admin" : "Approve-admin"}
                                             </button>
