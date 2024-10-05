@@ -16,8 +16,9 @@ const DisplayWaitlist = () => {
                         'Authorization': `Bearer ${localStorage.getItem('headToken')}` 
                     }
                 });
-                const updatedData = req.data.map(user => ({ ...user, isApproved: false })); 
-                setWaitlistData(updatedData);
+                // const updatedData = req.data.map(user => ({ ...user, isApproved: false })); 
+                console.log(req.data.data);
+                setWaitlistData(req.data.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
