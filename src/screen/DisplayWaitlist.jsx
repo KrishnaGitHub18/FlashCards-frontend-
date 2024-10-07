@@ -32,19 +32,26 @@ const DisplayWaitlist = () => {
 
         try {
             // const response = await fetch('http://localhost:5000/api/signup', {
-            const response = await fetch('https://flash-card-backend-ten.vercel.app/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, passwor, email })
-            })
-            const responseBackend = await response.json();
+            const response = await axios.post('https://flash-card-backend-ten.vercel.app/api/signup', { username, passwor, email });
+            const responseBackend = response.data;
             console.log("response of approving the user", responseBackend);
         } catch (error) {
             console.log("error in printing the waitlist", error);
         }
 
+        
+        try {
+            const response = await axios.post('https://flash-card-backend-ten.vercel.app/api/email', {username, email, passwor} );
+            // const response = await axios.post('http://localhost:5000/api/email', { username, email, passwor });
+            const responseBackend = response.data;
+            
+            console.log(responseBackend);
+            console.log(username, email, passwor);
+        } catch (error) {
+            console.error("Error in sending the confirmation email to the user.", error);
+        }
+        
+        
         try {
             // await axios.delete(`http://localhost:5000/api/deleteFromWaitlist/${id}`);
             await axios.delete(`https://flash-card-backend-ten.vercel.app/api/deleteFromWaitlist/${id}`);
@@ -54,15 +61,6 @@ const DisplayWaitlist = () => {
             console.error("Error deleting card:", error);
             console.log("b");
         }
-
-        try {
-            await axios.post('https://flash-card-backend-ten.vercel.app/api/email', {username, email, passwor} );
-            // await axios.post('http://localhost:5000/api/email', { username, email, passwor });
-            console.log(username, email, passwor);
-        } catch (error) {
-            console.error("Error in sending the conformation email to the user.", error)
-        }
-
     };
 
     const handleLogout = () => {
